@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>성남시 중원구 통반 검색 서비스</title>
+    <style>
+        @font-face {
+            font-family: 'EliceDigitalBaeum-Bd';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_elice@1.0/EliceDigitalBaeum-Bd.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        *{
+            font-family: 'EliceDigitalBaeum-Bd', sans-serif;
+        }
+
+        body {
+            font-family: 'EliceDigitalBaeum-Bd', sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap; /* flex 요소가 여러 줄에 걸쳐 표시되도록 함 */
+        }
+
+        .button-container button {
+            background-color: #ffffff;
+            flex: 1 0 30%;
+            max-width: 200px;
+            min-width: 100px;
+            margin: 15px; /* 버튼들 사이의 간격을 늘립니다. */
+            font-size: 1em;
+            padding: 10px 20px;
+            border: solid 2px rgb(212, 212, 212);
+            border-radius: 5px;
+            color: rgb(51, 51, 51);
+            transition: background-color 0.3s;
+        }
+
+        @media(min-width: 768px) {
+            /* PC 화면에서는 3열로 표시 */
+            .button-container button {
+                flex: 1 0 30%; /* 버튼의 너비를 30%로 설정 */
+                max-width: none; /* 최대 너비 해제 */
+            }
+        }
+
+        .button-container button:hover {
+            background-color: #acacac;
+        }
+
+        .search-container {
+            display: none;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .search-box {
+            text-align: center;
+            font-size: 1em;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            width: 70%;
+            max-width: 250px;
+            height: 50%;
+        }
+
+        .search-btn {
+            font-size: 1em;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: #314783;
+            color: #fff;
+            transition: background-color 0.3s;
+            height: 50%;
+        }
+
+        .search-btn:hover {
+            background-color: #11204b;
+        }
+
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border: 3px solid #252525;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 20px;
+        }
+
+        .result {
+            text-align: center;
+            font-size: 1em;
+            color: #333;
+        }
+
+        .dong.active {
+            background-color: #8d8d8d;
+        }
+
+        .notification-board {
+            border: none;
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .notification {
+            text-align: left;
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: #333333;
+            color: #ffffff;
+            text-align: center;
+            font-size: 12px; /* 작은 글씨 크기 */
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h2>📫성남시 중원구 통반 검색 서비스</h2>
+    <div class="button-container">
+        <button class="dong">성남동</button>
+        <button class="dong">도촌동</button>
+        <button class="dong">상대원1동</button>
+        <button class="dong">상대원2동</button>
+        <button class="dong">상대원3동</button>
+        <button class="dong">하대원동</button>
+        <button class="dong">중앙동</button>
+        <button class="dong">금광1동</button>
+        <button class="dong">금광2동</button>
+        <button class="dong">은행1동</button>
+        <button class="dong">은행2동</button>
+    </div>
+    <div class="search-container">
+        <input type="text" class="search-box" placeholder="번지수 입력 예시: 2234">
+        <button class="search-btn">🔎</button>
+    </div>
+    <div class="result-container">
+        <div class="result"></div>
+    </div>
+
+    <div>
+        <h2>🤔원하는 정보를 찾을 수 없었다면?<br>더 자세한 통반 정보 확인</h2>
+        <div class="button-container">
+            <button onclick="openURL('https://www.jungwongu.go.kr:10008/dong_office/mobile/sub/content.asp?cIdx=460&fboard=board_dong20&dong=dong1')">성남동 행정복지센터</button>
+            <button onclick="openURL('https://www.jungwongu.go.kr:10008/dong_office/mobile/sub/content.asp?cIdx=470&fboard=board_dong20&dong=dong11')">도촌동 행정복지센터</button>
+            <button onclick="openURL('https://www.jungwongu.go.kr:10008/dong_office/mobile/sub/content.asp?cIdx=466&fboard=board_dong20&dong=dong7')">상대원1동 행정복지센터</button>
+            <button onclick="openURL('https://www.jungwongu.go.kr:10008/dong_office/mobile/sub/content.asp?cIdx=467&fboard=board_dong20&dong=dong8')">상대원2동 행정복지센터</button>
+            <button onclick="openURL('https://www.jungwongu.go.kr:10008/dong_office/mobile/sub/content.asp?cIdx=468&fboard=board_dong20&dong=dong9')">상대원3동 행정복지센터</button>
+            <button onclick="openURL('https://www.jungwongu.go.kr:10008/dong_office/mobile/sub/content.asp?cIdx=469&fboard=board_dong20&dong=dong10')">하대원동 행정복지센터</button>
+            <button onclick="openURL('https://www.jungwongu.go.kr:10008/dong_office/mobile/sub/content.asp?cIdx=461&fboard=board_dong20&dong=dong2')">중앙동 행정복지센터</button>
+            <button onclick="openURL('https://www.jungwongu.go.kr:10008/dong_office/mobile/sub/content.asp?cIdx=462&fboard=board_dong20&dong=dong3')">금광1동 행정복지센터</button>
+            <button onclick="openURL('https://www.jungwongu.go.kr:10008/dong_office/mobile/sub/content.asp?cIdx=463&fboard=board_dong20&dong=dong4')">금광2동 행정복지센터</button>
+            <button onclick="openURL('https://www.jungwongu.go.kr:10008/dong_office/mobile/sub/content.asp?cIdx=464&fboard=board_dong20&dong=dong5')">은행1동 행정복지센터</button>
+            <button onclick="openURL('https://www.jungwongu.go.kr:10008/dong_office/mobile/sub/content.asp?cIdx=465&fboard=board_dong20&dong=dong6')">은행2동 행정복지센터</button>
+        </div>
+    </div>
+
+    <div class="notification-board">
+        <h2>📣공지사항</h2>
+        <div class="notification">
+            <h3>성남동 통반 검색 서비스 개시!</h3>
+            <p>2023.09.25</p>
+            <p>성남동의 통반 데이터가 업데이트 되어, 이제 통반 검색을 정상적으로 이용하실 수 있습니다.</p>
+        </div>
+        <div class="notification">
+            <h3>시범 운영</h3>
+            <p>시범 운영중입니다!</p>
+        </div>
+        <div class="notification">
+            <h3>시범 운영</h3>
+            <p>시범 운영중입니다!</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>문의: jaehyunandev@gmail.com</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.dong').forEach(function(dong) {
+            dong.addEventListener('click', function() {
+                document.querySelector('.search-container').style.display = 'flex';
+                document.querySelectorAll('.dong').forEach(function(dong) {
+                    dong.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+
+        var buttons = document.querySelectorAll('.dong');
+
+        buttons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                buttons.forEach(function(btn) {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+
+        document.querySelector('.search-btn').addEventListener('click', function() {
+            var bunji = document.querySelector('.search-box').value;
+            var dongName = document.querySelector('.dong.active');
+            var result = "";
+
+            if (dongName) {
+                dongName = dongName.innerText;
+                var database;
+
+                if (dongName === '성남동') { // 각 버튼 이름으로 수정
+                    database = '성남동.js';
+                } else if (dongName === '금광1동') {
+                    database = '금광1동.js';
+                } else if (dongName === '동3') {
+                    database = '동3.js';
+                }
+
+                var script = document.createElement('script');
+                script.src = database;
+                script.onload = function() {
+                    result = searchDatabase(bunji);
+
+                    // 결과를 출력
+                    var resultElement = document.querySelector('.result');
+                    resultElement.innerText = "검색결과: "+result;
+
+                    // 검색 결과창을 보이게 함
+                    document.querySelector('.result-container').style.display = 'block';
+
+                    // 결과 창이 보이게 되면 스크롤
+                    var resultContainer = document.querySelector('.result-container');
+                    resultContainer.scrollIntoView({ behavior: 'smooth' });
+                };
+
+                document.body.appendChild(script);
+            } else {
+                alert("동을 선택해주세요.");
+            }
+        });
+
+        function openURL(url) {
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
